@@ -7,25 +7,32 @@ import javax.persistence.*;
 public class Field {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id = 0;
     @Column(name = "label")
     private String label;
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private Type type;
     @Column(name = "required")
-    private boolean required;
+    private boolean isRequired;
     @Column(name = "active")
     private boolean isActive;
 
     public Field() {
     }
 
-    public Field(String label, Type type, boolean required, boolean isActive) {
+    public Field(String label, Type type, boolean isRequired, boolean isActive) {
         this.label = label;
         this.type = type;
-        this.required = required;
+        this.isRequired = isRequired;
+        this.isActive = isActive;
+    }
+
+    public Field(String label, String type, boolean isRequired, boolean isActive) {
+        this.label = label;
+        this.type = getTypeByName(type);
+        this.isRequired = isRequired;
         this.isActive = isActive;
     }
 
@@ -53,12 +60,20 @@ public class Field {
         this.type = type;
     }
 
+    public void setType(String type){
+        this.type = Type.valueOf(type.replaceAll(" ", "_").toUpperCase());
+    }
+
+    private static Type getTypeByName(String type){
+        return Type.valueOf(type.replaceAll(" ", "_").toUpperCase());
+    }
+
     public boolean isRequired() {
-        return required;
+        return isRequired;
     }
 
     public void setRequired(boolean required) {
-        this.required = required;
+        this.isRequired = required;
     }
 
     public boolean isActive() {

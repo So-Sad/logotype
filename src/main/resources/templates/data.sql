@@ -4,3 +4,7 @@ INSERT INTO users(first_name, last_name, email, phone, active) values ('David','
 INSERT INTO users(first_name, last_name, email, phone, active) values ('John','Lennon','standby@me.com','7689485620',true);
 INSERT INTO users(first_name, last_name, email, phone, active) values ('Ozzy','Osbourne','children@grave.com','6483748590',false);
 INSERT INTO users(first_name, last_name, email, phone, active) values ('Jimmy','Page','stairway@heaven.com','7648909831',true);
+INSERT into fields(label, type, required, active) VALUES ('Full Name', 'SINGLE_LINE_TEXT', true, true);
+INSERT into fields(label, type, required, active) VALUES ('Email', 'SINGLE_LINE_TEXT', true, true);
+INSERT into fields(label, type, required, active) VALUES ('Sex', 'RADIO_BUTTON', false, true);
+ALTER TABLE fields MODIFY COLUMN type ENUM('SINGLE_LINE_TEXT','MULTILINE_TEXT','RADIO_BUTTON','CHECKBOX','COMBOBOX','DATE');

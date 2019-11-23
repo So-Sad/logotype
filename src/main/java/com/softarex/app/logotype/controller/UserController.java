@@ -3,15 +3,16 @@ package com.softarex.app.logotype.controller;
 import com.softarex.app.logotype.entity.User;
 import com.softarex.app.logotype.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class UserController {
 
     private UserService userService;
@@ -22,13 +23,34 @@ public class UserController {
     }
 
     @RequestMapping(path = "/users", method = RequestMethod.GET)
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    public String getAllUsers(Model model){
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "user";
     }
 
-    @RequestMapping(path = "/users/{id}", method = RequestMethod.GET)
-    public Optional<User> getUserById(@PathVariable("id") long id){
+    @RequestMapping(path = "/users/getOne", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<User> getUserById(long id){
         return userService.getUserById(id);
+    }
+
+    @RequestMapping(path = "/users/addNew", method = RequestMethod.POST)
+    public String addNewUser(User user){
+        userService.addNew(user);
+        return "redirect:/users";
+    }
+
+    @RequestMapping(path = "/users/update", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String updateUsers(User user){
+        userService.update(user);
+        return "redirect:/users";
+    }
+
+    @RequestMapping(path = "/users/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String deleteUser(long id){
+        userService.delete(id);
+        return "redirect:/users";
     }
 
 }

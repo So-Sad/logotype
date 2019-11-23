@@ -24,4 +24,19 @@ public class FieldServiceImpl implements FieldService {
     public Optional<Field> getFieldById(long id) {
         return fieldRepository.findById(id);
     }
+
+    @Override
+    public void addNew(Field field) {
+        fieldRepository.save(field);
+    }
+
+    @Override
+    public void update(Field field) {
+        fieldRepository.save(field);
+    }
+
+    @Override
+    public void delete(long id) {
+        fieldRepository.deleteById(id);
+    }
 }

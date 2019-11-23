@@ -10,5 +10,8 @@ public interface FieldService {
 
     public List<Field> getAllFields();
     public Optional<Field> getFieldById(long id);
+    public void addNew(Field field);
+    public void update(Field field);
+    public void delete(long id);
 
 }
