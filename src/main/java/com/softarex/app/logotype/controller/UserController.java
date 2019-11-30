@@ -5,6 +5,8 @@ import com.softarex.app.logotype.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,6 +41,18 @@ public class UserController {
     public String addNewUser(User user){
         userService.addNew(user);
         return "redirect:/users";
+    }
+
+    @RequestMapping(path = "/sign_up", method = RequestMethod.GET)
+    public String signUpUser(Model model){
+        model.addAttribute("user", new User());
+        return "sign_up";
+    }
+
+    @RequestMapping(path = "/sign_up", method = RequestMethod.POST)
+    public String signUpUser(@ModelAttribute("user") User user, BindingResult result){
+        userService.signNew(user);
+        return "redirect:/login";
     }
 
     @RequestMapping(path = "/users/update", method = {RequestMethod.PUT, RequestMethod.GET})
