@@ -2,6 +2,7 @@ package com.softarex.app.logotype.controller;
 
 import com.softarex.app.logotype.entity.Field;
 import com.softarex.app.logotype.service.FieldService;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ public class FieldController {
 
 
     @RequestMapping(path = "/fields", method = RequestMethod.GET)
-    public String getAllFields(Model model){
+    public String getAllFields(Model model) {
         List<Field> fields = fieldService.getAllFields();
         model.addAttribute("fields", fields);
         return "field";
@@ -32,24 +33,33 @@ public class FieldController {
 
     @RequestMapping(path = "/fields/getOne", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<Field> getFieldById(long id){
+    public Optional<Field> getFieldById(long id) {
         return fieldService.getFieldById(id);
     }
 
+    @RequestMapping(path = "/fields/getAllJson", method = RequestMethod.GET)
+    @ResponseBody
+    public String getAllJsonFields() {
+        List<Field> fields = fieldService.getAllFields();
+        JSONArray jsonArray = new JSONArray(fields);
+        System.out.println(jsonArray);
+        return jsonArray.toString();
+    }
+
     @RequestMapping(path = "/fields/addNew", method = RequestMethod.POST)
-    public String addNewField(Field field){
+    public String addNewField(Field field) {
         fieldService.addNew(field);
         return "redirect:/fields";
     }
 
     @RequestMapping(path = "/fields/update", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String updateFields(Field field){
+    public String updateFields(Field field) {
         fieldService.update(field);
         return "redirect:/fields";
     }
 
     @RequestMapping(path = "/fields/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
-    public String deleteField(long id){
+    public String deleteField(long id) {
         fieldService.delete(id);
         return "redirect:/fields";
     }

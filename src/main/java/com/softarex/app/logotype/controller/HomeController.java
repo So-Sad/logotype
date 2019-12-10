@@ -9,12 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @GetMapping("/")
-    public String home(){
-        return "field";
+    public String home() {
+        return "questionnaire";
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
+
+    @GetMapping("/success")
+    public String success() {
+        return "success";
+    }
+
 }

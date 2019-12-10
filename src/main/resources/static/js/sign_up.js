@@ -1,4 +1,4 @@
-$('document').ready(function(){
+$('document').ready(function () {
 
     $('#signUpForm').submit(function (event) {
         var status = true;

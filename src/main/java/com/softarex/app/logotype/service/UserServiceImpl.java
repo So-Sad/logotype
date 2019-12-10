@@ -22,17 +22,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public Optional<User> getUserById(long id){
+    public Optional<User> getUserById(long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public User getUserByEmail(String email){
+    public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signNew(User user){
+    public void signNew(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
         user.setRoles("USER");
@@ -54,6 +54,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActive(true);
+        user.setRoles("USER");
         userRepository.save(user);
     }
 

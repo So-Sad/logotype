@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Field {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id = 0;
     @Column(name = "label")
@@ -18,22 +19,26 @@ public class Field {
     private boolean isRequired;
     @Column(name = "active")
     private boolean isActive;
+    @Column(name = "options")
+    private String options;
 
     public Field() {
     }
 
-    public Field(String label, Type type, boolean isRequired, boolean isActive) {
+    public Field(String label, Type type, boolean isRequired, boolean isActive, String options) {
         this.label = label;
         this.type = type;
         this.isRequired = isRequired;
         this.isActive = isActive;
+        this.options = options;
     }
 
-    public Field(String label, String type, boolean isRequired, boolean isActive) {
+    public Field(String label, String type, boolean isRequired, boolean isActive, String options) {
         this.label = label;
         this.type = getTypeByName(type);
         this.isRequired = isRequired;
         this.isActive = isActive;
+        this.options = options;
     }
 
     public long getId() {
@@ -82,5 +87,13 @@ public class Field {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
     }
 }

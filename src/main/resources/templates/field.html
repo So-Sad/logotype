@@ -29,40 +29,51 @@
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="/users">Users</a>
         <a class="p-2 text-dark" href="/fields">Fields</a>
-        <a class="p-2 text-dark" href="#">Responses</a>
+        <a class="p-2 text-dark" href="/responses">Responses</a>
+        <a class="p-2 text-dark" href="/editProfile">Edit Profile</a>
     </nav>
     <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
         <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>
+    </form>
+    <form>
+        <div class="dropdown" style="margin-left: 50px">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/editProfile">Edit profile</a>
+                <a class="dropdown-item" href="#">Change password</a>
+                <a class="dropdown-item" href="/logout">Log Out</a>
+            </div>
+        </div>
     </form>
 </div>
 
 <main role="main" class="container">
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-whatever="@mdo">+ Add
-        Field
-    </button>
-
-    <h1>Fields Table</h1>
+    <div class="containerHead">
+        <button id="addFieldButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-whatever="@mdo">+ Add
+            Field
+        </button>
+        <h1>Fields Table</h1>
+    </div>
     <table id="fieldsTable" class="table table-stripped">
         <thead>
         <tr>
-            <td>ID</td>
             <td>Label</td>
             <td>Type</td>
             <td>Required</td>
             <td>IsActive</td>
             <td></td>
-            <td></td>
         </tr>
         </thead>
         <tr th:each="field:${fields}">
-            <td th:text="${field.id}">ID</td>
             <td th:text="${field.label}">Label</td>
             <td th:text="${field.type}">Type</td>
             <td th:text="${field.required}">Required</td>
             <td th:text="${field.active}">IsActive</td>
-            <td><a id="editButton" th:href="@{/fields/getOne/(id=${field.id})}" class="btn btn-warning">Edit</a></td>
-            <td><a id="deleteButton" th:href="@{/fields/delete/(id=${field.id})}" class="btn btn-danger">Delete</a></td>
+            <td><a id="editButton" th:href="@{/fields/getOne/(id=${field.id})}" class="btn btn-warning">Edit</a>
+            <a id="deleteButton" th:href="@{/fields/delete/(id=${field.id})}" class="btn btn-danger">Delete</a></td>
         </tr>
     </table>
 
@@ -81,10 +92,6 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="add-id" class="col-form-label">ID:</label>
-                        <input type="text" class="form-control" id="add-id" name="id">
-                    </div>
-                    <div class="form-group">
                         <label for="add-label" class="col-form-label">Label:</label>
                         <input type="text" class="form-control" id="add-label" name="label">
                     </div>
@@ -94,23 +101,18 @@
                                 th:value="${typeOpt}" th:text="${typeOpt}">Choose type</option>
                     </select>
                     <div class="form-group">
-                        <label for="add-required" class="col-form-label">Required:</label>
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active">
-                                <input type="checkbox" id="add-required" checked autocomplete="off" name="isRequired">
-                                Required
-                            </label>
-                        </div>
+                        <label for="add-options" class="col-form-label">Options:</label>
+                        <textarea cols="40" rows="5" class="form-control" id="add-options" name="options"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="add-active" class="col-form-label">Is Active:</label>
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-outline-secondary active">
-                                <input type="checkbox" id="add-active" checked autocomplete="off" name="isActive">
-                                Active
-                            </label>
-                        </div>
+                        <label for="add-required" class="checkbox">Required</label>
+                        <input type="checkbox" id="add-required" checked="checked" name="isRequired" value="true">
                     </div>
+                    <div class="form-group">
+                        <label for="add-active" class="checkbox">Is Active</label>
+                        <input type="checkbox" id="add-active" checked="checked" name="isActive" value="true">
+                    </div>
+
 
 
                 </div>
@@ -136,34 +138,25 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="edit-id" class="col-form-label">ID:</label>
-                        <input type="text" class="form-control" id="edit-id" name="id">
-                    </div>
-                    <div class="form-group">
                         <label for="edit-label" class="col-form-label">Label:</label>
                         <input type="text" class="form-control" id="edit-label" name="label">
                     </div>
+                    <label class="my-1 mr-2" for="edit-type">Type: </label>
+                    <select class="custom-select my-1 mr-sm-2" id="edit-type" name="type">
+                        <option th:each="typeOpt : ${T(com.softarex.app.logotype.entity.Type).values()}"
+                                th:value="${typeOpt}" th:text="${typeOpt}">Choose type</option>
+                    </select>
                     <div class="form-group">
-                        <label for="edit-type" class="col-form-label">Type:</label>
-                        <input type="text" class="form-control" id="edit-type" name="type">
+                        <label for="edit-options" class="col-form-label">Options:</label>
+                        <textarea cols="40" rows="5" class="form-control" id="edit-options" name="options"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="edit-required" class="col-form-label">Required:</label>
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active">
-                                <input type="checkbox" id="edit-required" checked autocomplete="off" name="isRequired">
-                                Required
-                            </label>
-                        </div>
+                        <label for="edit-required" class="checkbox">Required</label>
+                        <input type="checkbox" id="edit-required" checked="checked" name="isRequired" value="true">
                     </div>
                     <div class="form-group">
-                        <label for="edit-active" class="col-form-label">Is Active:</label>
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active">
-                                <input type="checkbox" id="edit-active" checked autocomplete="off" name="isActive">
-                                Active
-                            </label>
-                        </div>
+                        <label for="edit-active" class="checkbox">Is Active</label>
+                        <input type="checkbox" id="edit-active" checked="checked" name="isActive" value="true">
                     </div>
 
 

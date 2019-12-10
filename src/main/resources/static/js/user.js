@@ -1,9 +1,9 @@
-$('document').ready(function(){
-    $('.table #editButton').on('click',function(event){
+$('document').ready(function () {
+    $('.table #editButton').on('click', function (event) {
 
         event.preventDefault();
 
-        var href= $(this).attr('href');
+        var href = $(this).attr('href');
 
         $.get(href, function (user) {
             $('#edit-id').val(user.id);

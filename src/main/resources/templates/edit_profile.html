@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../static/js/edit_profile.js" th:src="@{/js/edit_profile.js}"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">LOGOTYPE</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="/users">Users</a>
+            <a class="p-2 text-dark" href="/fields">Fields</a>
+            <a class="p-2 text-dark" href="#">Responses</a>
+        </nav>
+        <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+            <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>
+        </form>
+        <form>
+            <div class="dropdown-menu">
+                <span class="dropdown-header">Account</span>
+                <a class="dropdown-item" href="/editProfile">Edit profile</a>
+                <a class="dropdown-item" href="#">Change password</a>
+                <a class="dropdown-item" href="/logout">Log Out</a>
+            </div>
+        </form>
+    </div>
+
+    <div style="width:500px;margin-left: auto;margin-right: auto;margin-top:36px;padding: 24px;">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-user"></i> Edit Profile
+            </div>
+            <div class="card-block" style="padding: 24px;">
+                <form id="editForm" th:object="${user}" name="f" th:action="@{/editProfile}" method="post">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <label for="edit-name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="edit-name" name="firstName">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-last-name" class="col-form-label">Last Name:</label>
+                            <input type="text" class="form-control" id="edit-last-name" name="lastName">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-email" class="col-form-label">Email:</label>
+                            <input type="text" class="form-control" id="edit-email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="old-password">Current Password:</label>
+                            <input type="password" class="form-control" id="old-password" name="old-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">New Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password:</label>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-phone" class="col-form-label">Phone:</label>
+                            <input type="text" class="form-control" id="edit-phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-active" class="checkbox">Is Active</label>
+                            <input type="checkbox" id="edit-active" checked="checked" name="isActive" value="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-id" class="col-form-label" id="id-label">Name:</label>
+                            <input type="text" class="form-control" id="edit-id" name="id">
+                        </div>
+
+                        <div class="form-actions" style="margin-top: 12px;">
+                            <button id="submitButton" type="submit" class="btn btn-primary">SAVE</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -18,6 +18,7 @@ public class DBInit implements CommandLineRunner {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     @Override
     public void run(String... args) {
         this.userRepository.deleteAll();
@@ -28,7 +29,6 @@ public class DBInit implements CommandLineRunner {
                 passwordEncoder.encode("123456"), "ADMIN", "0987654321", true);
 
         List<User> users = Arrays.asList(user1, user2);
-
         this.userRepository.saveAll(users);
     }
 }
